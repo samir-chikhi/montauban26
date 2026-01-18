@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Programme complet de MGEC pour les municipales 2026 à Montauban. Citoyenneté, mobilité, économie, aménagement, services publics et animation.">
+    
+    <title>Programme | MGEC - Montauban 2026</title>
+    
+    <link rel="icon" type="image/jpeg" href="assets/images/logo-carre.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        /* Styles spécifiques à la page programme */
+        .programme-hero {
+            background: linear-gradient(135deg, var(--violet-mgec) 0%, #4A2870 100%);
+            color: var(--blanc);
+            padding: 150px 0 80px;
+            text-align: center;
+        }
+        
+        .programme-hero h1 {
+            color: var(--blanc);
+            margin-bottom: 20px;
+        }
+        
+        .programme-hero p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .theme-section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--gris-moyen);
+        }
+        
+        .theme-section:last-child {
+            border-bottom: none;
+        }
+        
+        .theme-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .theme-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+        
+        .theme-header h2 {
+            margin: 0;
+        }
+        
+        .theme-header .subtitle {
+            color: var(--gris-fonce);
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+        
+        .mesures-list {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .mesure-item {
+            background: var(--blanc);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--violet-mgec);
+            transition: all var(--transition-medium);
+        }
+        
+        .mesure-item:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .mesure-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .mesure-item h3::before {
+            content: '✓';
+            color: var(--vert-mgec);
+            font-weight: bold;
+        }
+        
+        .mesure-item p {
+            color: var(--gris-fonce);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        
+        /* Couleurs par thème */
+        .theme-citoyennete .theme-icon { background: var(--violet-mgec); color: var(--blanc); }
+        .theme-citoyennete .mesure-item { border-left-color: var(--violet-mgec); }
+        
+        .theme-mobilite .theme-icon { background: #E91E8C; color: var(--blanc); }
+        .theme-mobilite .mesure-item { border-left-color: #E91E8C; }
+        
+        .theme-economie .theme-icon { background: var(--rouge-mgec); color: var(--blanc); }
+        .theme-economie .mesure-item { border-left-color: var(--rouge-mgec); }
+        
+        .theme-amenagement .theme-icon { background: var(--vert-mgec); color: var(--blanc); }
+        .theme-amenagement .mesure-item { border-left-color: var(--vert-mgec); }
+        
+        .theme-services .theme-icon { background: #FF6B35; color: var(--blanc); }
+        .theme-services .mesure-item { border-left-color: #FF6B35; }
+        
+        .theme-animation .theme-icon { background: var(--jaune-mgec); color: var(--noir); }
+        .theme-animation .mesure-item { border-left-color: var(--jaune-mgec); }
+        
+        /* Navigation thèmes */
+        .themes-nav {
+            background: var(--blanc);
+            padding: 20px 0;
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .themes-nav ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+        }
+        
+        .themes-nav a {
+            display: block;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--noir);
+            background: var(--gris-clair);
+            transition: all var(--transition-fast);
+        }
+        
+        .themes-nav a:hover {
+            background: var(--jaune-mgec);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+            color: rgba(255,255,255,0.8);
+            font-weight: 600;
+        }
+        
+        .back-link:hover {
+            color: var(--blanc);
+        }
+        
+        @media (max-width: 768px) {
+            .theme-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .themes-nav ul {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding: 0 20px;
+                flex-wrap: nowrap;
+            }
+            
+            .themes-nav a {
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header id="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo-carre.jpg" alt="MGEC">
+            </a>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="index.html#agenda">Agenda</a></li>
+                    <li><a href="index.html#candidats">Candidats</a></li>
+                    <li><a href="programme.html" class="active">Programme</a></li>
+                    <li><a href="index.html#medias">Médias</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+                <div class="menu-toggle" id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO PROGRAMME -->
+    <section class="programme-hero">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Retour à l'accueil
+            </a>
+            <h1>Notre Programme</h1>
+            <p>6 axes pour transformer Montauban en une ville plus juste, plus verte et plus démocratique</p>
+        </div>
+    </section>
+
+    <!-- NAVIGATION THÈMES -->
+    <nav class="themes-nav">
+        <ul>
+            <li><a href="#citoyennete">🗳️ Citoyenneté</a></li>
+            <li><a href="#mobilite">🚲 Mobilité</a></li>
+            <li><a href="#economie">💼 Économie</a></li>
+            <li><a href="#amenagement">🌳 Aménagement</a></li>
+            <li><a href="#services">🏥 Services publics</a></li>
+            <li><a href="#animation">🎭 Animation</a></li>
+        </ul>
+    </nav>
+
+    <!-- CONTENU PROGRAMME -->
+    <main class="container">
+        
+        <!-- CITOYENNETÉ -->
+        <section id="citoyennete" class="theme-section theme-citoyennete">
+            <div class="theme-header">
+                <div class="theme-icon">🗳️</div>
+                <div>
+                    <h2>Citoyenneté</h2>
+                    <p class="subtitle">Le pouvoir rendu aux citoyens</p>
+                </div>
+            </div>
+            
+            <div class="mesures-list">
+                <div class="mesure-item">
+                    <h3>Démocratie participative locale</h3>
+                    <p>Création de conseils de quartiers autonomes, munis d'un budget propre, en mesure d'organiser des referendums locaux et d'interpeler le conseil municipal.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Conseil citoyen à la Maison du Peuple</h3>
+                    <p>Installation d'un conseil citoyen qui évaluera la pertinence et l'efficacité des politiques mises en place, l'action des élus et fait vivre la démocratie directe.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Pluralisme politique</h3>
+                    <p>Permettre aux élus d'opposition d'inscrire des points à l'ordre du jour du Conseil Municipal pour porter la voix de leur électorat.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Désarmement de la police municipale</h3>
+                    <p>Réorienter les moyens vers la médiation et la prévention plutôt que vers l'armement.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Conseil de médiation sociale de proximité</h3>
+                    <p>Recruter et former des médiateurs pour désamorcer les conflits d'incivilités et les nuisances du quotidien par le dialogue avant l'intervention policière.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Usage raisonné des caméras de surveillance</h3>
+                    <p>Réduire l'investissement dans la vidéosurveillance pour augmenter la présence physique des policiers et des éducateurs dans les quartiers prioritaires.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Transparence des budgets municipaux</h3>
+                    <p>Audit global des budgets Mairie-ComCom sur les 15 dernières années.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Plan de revitalisation "Sécurité-Lien Social"</h3>
+                    <p>Utiliser la culture, le sport et l'économie locale pour réactiver les rues et espaces publics et combattre le sentiment d'insécurité.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MOBILITÉ -->
+        <section id="mobilite" class="theme-section theme-mobilite">
+            <div class="theme-header">
+                <div class="theme-icon">🚲</div>
+                <div>
+                    <h2>Mobilité</h2>
+                    <p class="subtitle">Modes de transports diversifiés et accessibles à tous</p>
+                </div>
+            </div>
+            
+            <div class="mesures-list">
+                <div class="mesure-item">
+                    <h3>Gratuité et développement des transports en commun</h3>
+                    <p>Augmenter le cadencement (pas plus de 20 minutes entre deux bus), renforcer les liaisons après 19h et les dimanches, refonte des itinéraires pour desservir toutes les communes.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Plateformes multimodales avec voies cyclables sécurisées</h3>
+                    <p>Création de points centraux où les citoyens pourront garer leur voiture, avoir accès à des vélos et des bus. Parkings gratuits en périphérie avec bornes de recharge.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Une traversée cyclable du Tarn</h3>
+                    <p>Création d'une passerelle vélos-piétons sur le Tarn (modèle Albi) ou voie réservée aux vélos sur le Pont vieux.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Rendre gratuit le parking de la gare</h3>
+                    <p>Stationnement gratuit pour les détenteurs d'un billet de train ou d'un abonnement. Rénovation du parvis de la gare.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Remise en régie et gratuité des parkings</h3>
+                    <p>Pour les riverains, personnes âgées et à mobilité réduite afin que le centre ville redevienne vivable.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>4 axes verts de Montauban aux villages voisins</h3>
+                    <p>Création de voies cyclables et piétonnes sécurisées reliant Montauban aux communes périphériques.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Navette solaire sur le Tarn</h3>
+                    <p>Mise en place d'un transport fluvial écologique sur le Tarn.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Développer les transports solidaires</h3>
+                    <p>Covoiturage, pédibus, élargissement des offres pour les PMR sur le transport en commun.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Flotte municipale de 10 voitures électriques autopartagées</h3>
+                    <p>Mise à disposition de véhicules électriques en libre-service pour les déplacements ponctuels.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ÉCONOMIE -->
+        <section id="economie" class="theme-section theme-economie">
+            <div class="theme-header">
+                <div class="theme-icon">💼</div>
+                <div>
+                    <h2>Économie</h2>
+                    <p class="subtitle">Emploi digne, vie abordable, notre économie au service de tous</p>
+                </div>
+            </div>
+            
+            <div class="mesures-list">
+                <div class="mesure-item">
+                    <h3>Logements sociaux et encadrement des loyers</h3>
+                    <p>Augmenter la part de logements sociaux (actuellement 19,4%) et instaurer immédiatement l'encadrement des loyers et des actions contre le logement vide.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Société Publique Locale de l'habitat</h3>
+                    <p>Création d'une SPL pour produire des logements neufs et réhabilités en utilisant le modèle du bail réel solidaire (BRS) pour garantir des prix d'achat très bas.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Territoires Zéro Chômeur de Longue Durée</h3>
+                    <p>Engagement dans le programme TZCLD à l'échelle de la commune.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Fonds municipal de soutien aux artisans et PME</h3>
+                    <p>Aide conditionnée à des critères sociaux (salaire minimum municipal, parité) et écologiques (bilan carbone, circuits courts). Possible monnaie locale complémentaire.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>50% de la commande publique pour le local et l'ESS</h3>
+                    <p>Augmenter le seuil de la commande publique municipale en favorisant les entreprises locales et l'Économie Sociale et Solidaire avec des clauses sociales et environnementales strictes.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Soutien aux jeunes agriculteurs en agro-écologie</h3>
+                    <p>Via la préemption de terres, la maîtrise foncière de la collectivité, la création de Zones Agricoles Protégées.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Création de halles et pépinières d'activités</h3>
+                    <p>À loyer modéré pour les commerces de proximité et l'artisanat pour redonner un tissu économique stable au centre ville.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AMÉNAGEMENT -->
+        <section id="amenagement" class="theme-section theme-amenagement">
+            <div class="theme-header">
+                <div class="theme-icon">🌳</div>
+                <div>
+                    <h2>Aménagement</h2>
+                    <p class="subtitle">Planifier la ville de demain, résiliente et humaine</p>
+                </div>
+            </div>
+            
+            <div class="mesures-list">
+                <div class="mesure-item">
+                    <h3>Plan Local d'Urbanisme Intercommunal</h3>
+                    <p>Lancer le processus d'élaboration d'un PLUi pour harmoniser l'aménagement, la stratégie de l'habitat et des transports.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Lutte contre l'étalement urbain</h3>
+                    <p>Intégrer des règles strictes dans le futur PLUi, densifier l'habitat de manière raisonnée et protéger les terres agricoles périphériques.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Maisons du Commun dans chaque quartier</h3>
+                    <p>Créer des lieux de vie et de partage attractifs (antenne médiathèque, ateliers thématiques) pour dynamiser la vie de quartier.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Agriculture urbaine et ceinture maraîchère</h3>
+                    <p>Investir les friches pour les transformer en zones maraîchères. Construire un Projet Alimentaire de Territoire. Jardins partagés sur toiture.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Création d'un marché couvert</h3>
+                    <p>Aménager une halle de produits de bouche pour favoriser les producteurs locaux.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Végétalisation et îlots de fraîcheur</h3>
+                    <p>Encourager les toitures et façades végétalisées. Replanter des arbres en centre urbain. Revêtements de sols moins imperméables.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Créer et rénover les jardins publics</h3>
+                    <p>Offrir des poumons verts accessibles toute l'année : Place des Marronniers, Place Lalaque, Square Piquare, Parc du Treil, Jardin des Plantes.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Moratoire sur les nouveaux centres commerciaux</h3>
+                    <p>Stopper l'implantation de nouvelles grandes surfaces pour protéger le commerce de proximité.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Aménagement inclusif</h3>
+                    <p>Prévoir tous les aménagements accessibles à toutes et tous afin de favoriser la mixité.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES PUBLICS -->
+        <section id="services" class="theme-section theme-services">
+            <div class="theme-header">
+                <div class="theme-icon">🏥</div>
+                <div>
+                    <h2>Services publics</h2>
+                    <p class="subtitle">De la DSP à la régie, le service public retrouvé</p>
+                </div>
+            </div>
+            
+            <div class="mesures-list">
+                <div class="mesure-item">
+                    <h3>Retour en régie des services publics</h3>
+                    <p>Étudier la faisabilité d'un retour en régie de toutes les DSP : eau (Véolia), assainissement (SAUR), déchets (Suez), piscine (Ingréo).</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Centres de santé municipaux</h3>
+                    <p>Création de centres avec des médecins salariés pour répondre à l'urgence des 12 000 Montalbanais sans médecin référent.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Plan pluriannuel d'investissement pour les écoles</h3>
+                    <p>Rénovation thermique et mise aux normes climatiques de toutes les écoles. Rénovation de la cuisine centrale.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Alimentation 100% bio, locale et gratuite</h3>
+                    <p>Rétablir et garantir les repas quotidiens et gratuits pour les enfants. Démarche 100% bio ou sous label de qualité.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Sécurité sociale alimentaire</h3>
+                    <p>Mise en place d'un système garantissant l'accès de tous à une alimentation de qualité.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Soutien au nouvel hôpital sur site actuel</h3>
+                    <p>Maintenir une dynamique de santé dans le centre ville en anticipant les problèmes de liaison entre les sites.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Tarification étagée et solidaire de l'eau</h3>
+                    <p>Premiers m³ gratuits, tarifs progressifs pour un meilleur intérêt des particuliers.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Pôle universitaire</h3>
+                    <p>Faciliter le déploiement d'un pôle universitaire en lien avec la ComUE de Toulouse.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANIMATION -->
+        <section id="animation" class="theme-section theme-animation">
+            <div class="theme-header">
+                <div class="theme-icon">🎭</div>
+                <div>
+                    <h2>Animation</h2>
+                    <p class="subtitle">Montauban vivante, libre et solidaire !</p>
+                </div>
+            </div>
+            
+            <div class="mesures-list">
+                <div class="mesure-item">
+                    <h3>Maison du Peuple : service public gratuit</h3>
+                    <p>Redonner à la Maison du Peuple sa vocation de service public gratuit aux associations, syndicats et partis politiques.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Un projet précis pour la culture</h3>
+                    <p>Redéfinir une véritable politique culturelle comprenant tous les arts dont la culture occitane avec les acteurs du territoire.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Moyens pour les structures jeunesse</h3>
+                    <p>Apporter des moyens supplémentaires à la MJC Montauban, Maison des Jeunes, La Comète. Créer des lieux de vie autogérés par les jeunes.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Culture accessible pour tous</h3>
+                    <p>Soutenir et consulter le tissu associatif culturel. Repenser Montauban en Scène et son accessibilité sociale.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Consultation du tissu associatif</h3>
+                    <p>Échanger systématiquement avec les associations concernées sur les grands projets de la commune.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Transparence du financement associatif</h3>
+                    <p>Garantir la transparence des critères d'attribution et maintenir l'indépendance des associations.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Soutien au sport amateur</h3>
+                    <p>Assurer un soutien aux clubs du quotidien tout en respectant leur indépendance via des subventions de la mairie.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Nouvelle piscine tournée vers le loisir</h3>
+                    <p>Une piscine pour le Grand Montauban uniquement tournée vers la pratique en loisir.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Aires de jeux et parcs sportifs publics</h3>
+                    <p>Pour une pratique sportive libre et gratuite sur toute la commune avec une adaptation saisonnière.</p>
+                </div>
+                <div class="mesure-item">
+                    <h3>Rénovation du Muséum d'histoire naturelle</h3>
+                    <p>Création de réserve et étude d'un nouveau site autour du Jardin des Plantes qui retrouve son rôle de parc.</p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="text-center mt-3 mb-3" style="padding: 40px 0;">
+            <a href="index.html#contact" class="btn btn-primary">
+                Rejoignez-nous pour porter ce programme !
+            </a>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/images/logo-carre.jpg" alt="MGEC">
+                    <p>Montauban de Gauche, Écologiste et Citoyenne.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="index.html#agenda">Agenda</a></li>
+                        <li><a href="index.html#candidats">Candidats</a></li>
+                        <li><a href="programme.html">Programme</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Suivez-nous</h4>
+                    <div class="footer-social-icons">
+                        <a href="https://www.facebook.com/montauban2026" target="_blank" rel="noopener">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/montauban2026" target="_blank" rel="noopener">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"></rect>
+                                <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"></circle>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MGEC - Tous droits réservés.</p>
+                <a href="mentions-legales.html">Mentions légales</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
